@@ -18,8 +18,9 @@ const routes = [
     component: Home
   },
   {
-    path: '/Product',
+    path: '/Product/:slug',
     name: 'Product',
+    props:true,
     component: Product
   },
   {
