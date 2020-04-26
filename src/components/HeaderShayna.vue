@@ -1,14 +1,16 @@
 <template>
-	<!-- Header Section Begin -->
+    <!-- Header Section Begin -->
     <header class="header-section">
         <div class="header-top">
             <div class="container">
                 <div class="ht-left">
                     <div class="mail-service">
-                        <i class=" fa fa-envelope"></i> pemudakoding@gmail.com
+                        <i class="fa fa-envelope"></i>
+                        {{webInformation.email}}
                     </div>
                     <div class="phone-service">
-                        <i class=" fa fa-phone"></i> +628 8224234
+                        <i class="fa fa-phone"></i>
+                        {{webInformation.number}}
                     </div>
                 </div>
             </div>
@@ -19,7 +21,7 @@
                     <div class="col-lg-2 col-md-2">
                         <div class="logo">
                             <a href="./index.html">
-                                <img src="img/logo_website_shayna.png" alt="" />
+                                <img v-bind:src="webInformation.logo" alt />
                             </a>
                         </div>
                     </div>
@@ -35,18 +37,28 @@
                                 <div class="cart-hover">
                                     <div class="select-items">
                                         <table>
-                                            <tbody v-if='userCart.length > 0'>
-                                                <tr v-for='(cart,index) in userCart' v-bind:key='cart.id'>
+                                            <tbody v-if="userCart.length > 0">
+                                                <tr
+                                                    v-for="(cart,index) in userCart"
+                                                    v-bind:key="cart.id"
+                                                >
                                                     <td class="si-pic">
-                                                        <img class='photo-item' v-bind:src="cart.photo" alt="" />
+                                                        <img
+                                                            class="photo-item"
+                                                            v-bind:src="cart.photo"
+                                                            alt
+                                                        />
                                                     </td>
                                                     <td class="si-text">
                                                         <div class="product-selected">
-                                                            <p>${{cart.price}} x 1</p>
+                                                            <p>{{idrPrice(cart.price)}} x 1</p>
                                                             <h6>{{cart.name}}</h6>
                                                         </div>
                                                     </td>
-                                                    <td v-on:click='removeItem(index)' class="si-close">
+                                                    <td
+                                                        v-on:click="removeItem(index)"
+                                                        class="si-close"
+                                                    >
                                                         <i class="ti-close"></i>
                                                     </td>
                                                 </tr>
@@ -60,13 +72,12 @@
                                     </div>
                                     <div class="select-total">
                                         <span>total:</span>
-                                        <h5>${{totalPrice}}.00</h5>
+                                        <h5>{{totalPrice}}.00</h5>
                                     </div>
                                     <div class="select-button">
-                                        <router-link to='/cart' class='primary-btn view-card'> 
-                                            <a href="#" class="text-light">VIEW CARD</a> 
+                                        <router-link to="/cart" class="primary-btn checkout-btn">
+                                            <a href="#" class="text-light">Checkout</a>
                                         </router-link>
-                                        <a href="#" class="primary-btn checkout-btn">CHECK OUT</a>
                                     </div>
                                 </div>
                             </li>
@@ -80,48 +91,55 @@
 </template>
 
 <script>
-	export default {
-		name: 'HeaderShayna',
-        data: function(){
-            return {
-                userCart: []
-            }
-        },
-        methods: {
-            removeItem(index){
-                this.userCart.splice(index,1);
-                const parsed = JSON.stringify(this.userCart);
-                localStorage.setItem('userCart', parsed);
+import idrCurrency from "@/instance/idrCurrency.js";
 
-                window.location.reload();
-            }
+export default {
+    name: "HeaderShayna",
+    data: function() {
+        return {
+            userCart: []
+        };
+    },
+    methods: {
+        removeItem(index) {
+            this.userCart.splice(index, 1);
+            const parsed = JSON.stringify(this.userCart);
+            localStorage.setItem("userCart", parsed);
 
+            window.location.reload();
         },
-        mounted: function(){
-            if (localStorage.getItem('userCart')) {
-              try {
-                this.userCart = JSON.parse(localStorage.getItem('userCart'));
-              } catch(e) {
-                localStorage.removeItem('userCart');
-              }
-            }
-        },
-        computed: {
-            totalPrice(){
-                if(this.userCart.length > 0){
-                    return this.userCart.reduce((items,data) => items + data.price,0)
-                }else{
-                    return '0';
-                }
+        idrPrice(price) {
+            return idrCurrency.convert(price);
+        }
+    },
+    mounted: function() {
+        if (localStorage.getItem("userCart")) {
+            try {
+                this.userCart = JSON.parse(localStorage.getItem("userCart"));
+            } catch (e) {
+                localStorage.removeItem("userCart");
             }
         }
-	}
+    },
+    computed: {
+        totalPrice() {
+            if (this.userCart.length > 0) {
+                return idrCurrency.convert(
+                    this.userCart.reduce((items, data) => items + data.price, 0)
+                );
+            } else {
+                return "0";
+            }
+        }
+    },
+    props: ["webInformation"]
+};
 </script>
 
 <style scoped>
-    .photo-item{
-        width: 80px;
-        height: 80px;
-        object-fit: cover;
-    }
+.photo-item {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+}
 </style>
