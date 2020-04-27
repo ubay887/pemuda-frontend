@@ -3,7 +3,9 @@
         <HeaderPemuda :webInformation="webInformation" />
         <div class="container mb-5">
             <div class="row">
-                <div class="col-lg-4">
+                <div
+                    class="col-lg-4 col-sm-12 col-md-6 mb-sm-5 d-sm-flex justify-content-sm-center justify-content-md-start"
+                >
                     <div class="card" style="width: 18rem;">
                         <ul class="list-group list-group-flush">
                             <li
@@ -66,8 +68,15 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-lg-8" v-if="products.length > 0">
-                    <div class="col-4" v-for="product in products" v-bind:key="product.id">
+                <div
+                    class="col-lg-8 col-sm-12 d-sm-flex col-md-6 justify-content-sm-center justify-content-md-start"
+                    v-if="products.length > 0"
+                >
+                    <div
+                        class="col-lg-4 col-6 col-md-12"
+                        v-for="product in products"
+                        v-bind:key="product.id"
+                    >
                         <div class="product-item">
                             <div class="pi-pic">
                                 <img v-bind:src="product.galleries[0].photo" alt />
@@ -79,7 +88,7 @@
                                     </li>
                                     <li class="quick-view">
                                         <router-link
-                                            v-bind:to="'/product/'+product.slug"
+                                            v-bind:to="'/product/detail/'+product.slug"
                                         >+ Quick View</router-link>
                                     </li>
                                 </ul>
@@ -125,9 +134,10 @@ export default {
             userCart: [],
             webInformation: [],
             filterProduct: {
-                type: "",
-                price_from: "",
-                price_to: ""
+                name: this.$route.params.search || "",
+                type: "" || "",
+                price_from: "" || "",
+                price_to: "" || ""
             },
             products: []
         };
@@ -156,6 +166,7 @@ export default {
             axios.instance
                 .get("products", {
                     params: {
+                        name: this.filterProduct.name,
                         type: this.filterProduct.type,
                         price_from: this.filterProduct.price_from,
                         price_to: this.filterProduct.price_to
@@ -168,21 +179,50 @@ export default {
         }
     },
     mounted() {
+        /**
+         * Request to get app information from server
+         */
         axios.instance
             .get("app")
             .then(res => {
                 this.webInformation = res.data.data;
             })
             .catch(err => console.log(err));
-        axios.instance
-            .get("products")
-            .then(res => {
-                this.products = res.data.data.data;
-            })
-            .catch(err => console.log(err));
+
+        /**
+         * Check name in filterProduct empty or not when page ready
+         * if empty that user's do search or filter
+         * so run setFilter Method
+         * if not run new request
+         */
+        if (this.filterProduct.name == "") {
+            axios.instance
+                .get("products")
+                .then(res => {
+                    this.products = res.data.data.data;
+                })
+                .catch(err => console.log(err));
+        } else {
+            this.setFilter();
+        }
     },
     watch: {
-        "filterProduct.type": "setFilter"
+        /**
+         * Watching a filterProduct property type
+         * if changes run setFilter function
+         */
+        "filterProduct.type": "setFilter",
+
+        /**
+         * Watching a search parameter if changed
+         * run function below
+         * changes property name in filterProduct Object
+         * and run request to get api with setFilter function
+         */
+        "$route.params.search": function(searchParams) {
+            this.filterProduct.name = searchParams;
+            return this.setFilter();
+        }
     }
 };
 </script>

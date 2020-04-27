@@ -17,7 +17,7 @@
         </div>
         <div class="container">
             <div class="inner-header">
-                <div class="row">
+                <div class="row align-items-center">
                     <div class="col-lg-2 col-md-2">
                         <div class="logo">
                             <router-link to="/">
@@ -25,7 +25,26 @@
                             </router-link>
                         </div>
                     </div>
-                    <div class="col-lg-7 col-md-7"></div>
+                    <div class="col-lg-7 col-md-7">
+                        <div class="input-group add-on">
+                            <input
+                                class="form-control"
+                                placeholder="Cari Produk"
+                                name="srch-term"
+                                id="srch-term"
+                                type="text"
+                                v-model="search"
+                            />
+                            <div class="input-group-btn">
+                                <button
+                                    class="btn btn-warning text-light"
+                                    style="padding:5px 30px 5px 30px; border-radius:0;"
+                                    type="submit"
+                                    @click="searchProduct()"
+                                >Cari</button>
+                            </div>
+                        </div>
+                    </div>
                     <div class="col-lg-3 text-right col-md-3 d-sm-flex justify-content-sm-center">
                         <ul class="nav-right">
                             <li class="cart-icon">
@@ -97,6 +116,7 @@ export default {
     name: "HeaderShayna",
     data: function() {
         return {
+            search: "",
             userCart: []
         };
     },
@@ -110,6 +130,20 @@ export default {
         },
         idrPrice(price) {
             return idrCurrency.convert(price);
+        },
+        searchProduct() {
+            let params = this.search;
+            if (!this.$route.params.search) {
+                this.$router.push({
+                    name: "ProductSearch",
+                    params: { search: params }
+                });
+            } else {
+                this.$router.replace({
+                    name: "ProductSearch",
+                    params: { search: params }
+                });
+            }
         }
     },
     mounted: function() {

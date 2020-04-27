@@ -33,7 +33,7 @@
                                     </li>
                                     <li class="quick-view">
                                         <router-link
-                                            v-bind:to="'/product/'+product.slug"
+                                            v-bind:to="'/product/Detail/'+product.slug"
                                         >+ Quick View</router-link>
                                     </li>
                                 </ul>
