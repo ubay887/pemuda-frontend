@@ -1,6 +1,6 @@
 <template>
     <div class="product">
-        <HeaderShayna v-bind:webInformation="webInformation" />
+        <HeaderPemuda v-bind:webInformation="webInformation" />
         <!-- Breadcrumb Section Begin -->
         <div class="breacrumb-section text-left">
             <div class="container">
@@ -75,15 +75,15 @@
             </div>
         </section>
         <!-- Product Shop Section End -->
-        <RelatedProductShayna />
-        <FooterShayna v-bind:webInformation="webInformation" />
+        <RelatedProductPemuda />
+        <FooterPemuda v-bind:webInformation="webInformation" />
     </div>
 </template>
 
 <script>
-import HeaderShayna from "@/components/HeaderShayna.vue";
-import RelatedProductShayna from "@/components/RelatedProductShayna.vue";
-import FooterShayna from "@/components/FooterShayna.vue";
+import HeaderPemuda from "@/components/HeaderPemuda.vue";
+import RelatedProductPemuda from "@/components/RelatedProductPemuda.vue";
+import FooterPemuda from "@/components/FooterPemuda.vue";
 
 /**
  * LIBRARY
@@ -96,9 +96,9 @@ import carousel from "vue-owl-carousel";
 export default {
     name: "Product",
     components: {
-        HeaderShayna,
-        RelatedProductShayna,
-        FooterShayna,
+        HeaderPemuda,
+        RelatedProductPemuda,
+        FooterPemuda,
 
         /**
          * Library

@@ -4,15 +4,14 @@ import VueRouter from 'vue-router'
 /**
  * VIEWS
  */
-import Home         from '../views/Home.vue';
-import Product      from '../views/Product.vue';
+import Home from '../views/Home.vue';
+import Product from '../views/Product.vue';
 import ShoppingCart from '../views/ShoppingCart.vue';
-import Success      from '../views/Success.vue';
+import Success from '../views/Success.vue';
 
 Vue.use(VueRouter)
 
-const routes = [
-  {
+const routes = [{
     path: '/',
     name: 'Home',
     component: Home
@@ -20,7 +19,7 @@ const routes = [
   {
     path: '/Product/:slug',
     name: 'Product',
-    props:true,
+    props: true,
     component: Product
   },
   {
