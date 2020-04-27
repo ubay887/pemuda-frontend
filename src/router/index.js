@@ -5,6 +5,7 @@ import VueRouter from 'vue-router'
  * VIEWS
  */
 import Home from '../views/Home.vue';
+import Product from '../views/Product.vue';
 import ProductDetail from '../views/ProductDetail.vue';
 import ShoppingCart from '../views/ShoppingCart.vue';
 import Success from '../views/Success.vue';
@@ -17,8 +18,14 @@ const routes = [{
     component: Home
   },
   {
-    path: '/Product/:slug',
+    path: '/Product',
     name: 'Product',
+    props: true,
+    component: Product
+  },
+  {
+    path: '/Product/:slug',
+    name: 'ProductDetail',
     props: true,
     component: ProductDetail
   },
@@ -35,6 +42,7 @@ const routes = [{
 ]
 
 const router = new VueRouter({
+  mode: 'history',
   routes
 })
 

@@ -28,7 +28,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 offset-lg-1">
+                <div class="col-6 col-lg-3 col-sm-6 offset-lg-1">
                     <div class="footer-widget text-left">
                         <h5>Information</h5>
                         <ul>
@@ -47,7 +47,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-lg-3">
+                <div class="col-6 col-lg-3 col-sm-6">
                     <div class="footer-widget text-left">
                         <h5>My Account</h5>
                         <ul>

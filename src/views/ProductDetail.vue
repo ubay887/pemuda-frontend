@@ -94,7 +94,7 @@ import idrCurreny from "@/instance/idrCurrency.js";
 import carousel from "vue-owl-carousel";
 
 export default {
-    name: "Product",
+    name: "ProductDetail",
     components: {
         HeaderPemuda,
         RelatedProductPemuda,

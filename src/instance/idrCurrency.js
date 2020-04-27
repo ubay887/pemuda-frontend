@@ -1,9 +1,8 @@
-let convertToRupiah = function (value) {
-    var rupiah = '';
-    var valuerev = value.toString().split('').reverse().join('');
-    for (var i = 0; i < valuerev.length; i++)
-        if (i % 3 == 0) rupiah += valuerev.substr(i, 3) + '.';
-    return 'Rp. ' + rupiah.split('', rupiah.length - 1).reverse().join('');
+let convertToRupiah = function (angka) {
+    let reverse = angka.toString().split('').reverse().join(''),
+        ribuan = reverse.match(/\d{1,3}/g);
+    ribuan = ribuan.join('.').split('').reverse().join('');
+    return 'Rp. ' + ribuan;
 }
 
 export default {

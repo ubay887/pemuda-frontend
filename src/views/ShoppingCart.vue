@@ -1,6 +1,6 @@
 <template>
     <div class="shopping">
-        <HeaderPemuda />
+        <HeaderPemuda :webInformation="webInformation" />
         <!-- Breadcrumb Section Begin -->
         <div class="breacrumb-section text-left">
             <div class="container">
@@ -121,20 +121,20 @@
                                 <div class="proceed-checkout text-left">
                                     <ul>
                                         <li class="subtotal">
-                                            ID Transaction
-                                            <span>#SH12000</span>
+                                            ID Transaksi
+                                            <span>{{idTransaction}}</span>
                                         </li>
                                         <li class="subtotal mt-3">
                                             Subtotal
-                                            <span>${{totalPrice}}.00</span>
+                                            <span>{{idrPrice(totalPrice)}}.00</span>
                                         </li>
                                         <li class="subtotal mt-3">
                                             Pajak
-                                            <span>10% ${{ pajak }}.00</span>
+                                            <span>10% = {{ idrPrice(pajak) }}.00</span>
                                         </li>
                                         <li class="subtotal mt-3">
                                             Total Biaya
-                                            <span>${{total}}.00</span>
+                                            <span>{{idrPrice(total)}}.00</span>
                                         </li>
                                         <li class="subtotal mt-3">
                                             Bank Transfer
@@ -162,7 +162,7 @@
             </div>
         </section>
         <!-- Shopping Cart Section End -->
-        <FooterPemuda />
+        <FooterPemuda :webInformation="webInformation" />
     </div>
 </template>
 
@@ -173,8 +173,8 @@ import FooterPemuda from "@/components/FooterPemuda.vue";
 /**
         Library
     */
-
-import axios from "axios";
+import idrCurrency from "@/instance/idrCurrency.js";
+import axios from "@/instance/axios.js";
 
 export default {
     name: "ShoppingCart",
@@ -190,7 +190,8 @@ export default {
                 email: "",
                 number: "",
                 address: ""
-            }
+            },
+            webInformation: []
         };
     },
     methods: {
@@ -203,6 +204,7 @@ export default {
             let productIds = this.userCart.map(product => product.id);
 
             let checkoutData = {
+                uuid: this.idTransaction,
                 name: this.customerInfo.name,
                 email: this.customerInfo.email,
                 number: this.customerInfo.number,
@@ -212,10 +214,17 @@ export default {
                 transaction_details: productIds
             };
 
-            axios
-                .post("http://localhost:8000/api/checkout", checkoutData)
+            this.userCart.splice(0);
+            const parsed = JSON.stringify(this.userCart);
+            localStorage.setItem("userCart", parsed);
+
+            axios.instance
+                .post("checkout", checkoutData)
                 .then(() => this.$router.push("success"))
                 .catch(err => console.log(err));
+        },
+        idrPrice(price) {
+            return idrCurrency.convert(price);
         }
     },
     mounted() {
@@ -226,6 +235,12 @@ export default {
                 localStorage.removeItem("useCart");
             }
         }
+        axios.instance
+            .get("app")
+            .then(res => {
+                this.webInformation = res.data.data;
+            })
+            .catch(err => console.log(err));
     },
     computed: {
         totalPrice() {
@@ -243,6 +258,11 @@ export default {
         },
         total() {
             return this.totalPrice + this.pajak;
+        },
+        idTransaction() {
+            return `TRX-${Math.floor(Math.random() * 9999)}${Math.floor(
+                Math.random() * 999
+            )}`;
         }
     }
 };

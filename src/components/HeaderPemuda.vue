@@ -20,13 +20,13 @@
                 <div class="row">
                     <div class="col-lg-2 col-md-2">
                         <div class="logo">
-                            <a href="./index.html">
+                            <router-link to="/">
                                 <img v-bind:src="webInformation.logo" alt />
-                            </a>
+                            </router-link>
                         </div>
                     </div>
                     <div class="col-lg-7 col-md-7"></div>
-                    <div class="col-lg-3 text-right col-md-3">
+                    <div class="col-lg-3 text-right col-md-3 d-sm-flex justify-content-sm-center">
                         <ul class="nav-right">
                             <li class="cart-icon">
                                 Keranjang Belanja &nbsp;

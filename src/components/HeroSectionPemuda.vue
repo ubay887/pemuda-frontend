@@ -14,7 +14,9 @@
                             <span>{{hero.type}}</span>
                             <h1>{{hero.title}}</h1>
                             <p v-html="hero.description"></p>
-                            <a href="#" class="primary-btn">Belanja Sekarang</a>
+                            <a href="product" class="primary-btn text-white">
+                                <router-link to="product">Belanja Sekarang</router-link>
+                            </a>
                         </div>
                     </div>
                 </div>
