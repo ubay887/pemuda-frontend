@@ -4,7 +4,8 @@
         <div class="container-fluid">
             <div class="d-flex justify-content-start mt-5">
                 <div class="w-25 text-left title-product">
-                    <span>Produk</span> Wanita
+                    <span>Produk</span>
+                    {{type}}
                 </div>
             </div>
             <div class="row">
@@ -105,12 +106,14 @@ export default {
         axios.instance
             .get("products", {
                 params: {
-                    limit: 10
+                    limit: 10,
+                    type: this.type
                 }
             })
             .then(res => (this.products = res.data.data.data))
             .catch(err => console.log(err));
-    }
+    },
+    props: ["type"]
 };
 </script>
 

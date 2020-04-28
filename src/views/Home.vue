@@ -2,7 +2,8 @@
     <div class="home">
         <HeaderPemuda v-bind:webInformation="webInformation" />
         <HeroSectionPemuda />
-        <BannerPemuda />
+        <BannerPemuda type="wanita" />
+        <BannerPemuda type="pria" />
         <InstaPemuda />
         <PatnerLogoPemuda />
         <FooterPemuda v-bind:webInformation="webInformation" />
