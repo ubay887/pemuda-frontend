@@ -70,16 +70,18 @@
                 </div>
                 <div
                     class="col-lg-8 col-sm-12 d-sm-flex col-md-6 justify-content-sm-center justify-content-md-start"
-                    v-if="products.length > 0"
                 >
                     <div
-                        class="col-lg-4 col-6 col-md-12"
+                        class="col-6 col-md-12 col-lg-4"
                         v-for="product in products"
                         v-bind:key="product.id"
                     >
                         <div class="product-item">
                             <div class="pi-pic">
-                                <img v-bind:src="product.galleries[0].photo" alt />
+                                <img
+                                    v-bind:src="product.galleries[0].photo"
+                                    style="height: 330px; object-fit: cover;"
+                                />
                                 <ul>
                                     <li class="w-icon active">
                                         <a href="#" v-on:click="addCart(product)">
@@ -102,10 +104,9 @@
                             </div>
                         </div>
                     </div>
+                    <transition name="component-fade" mode="out-in">Produk tidak ada</transition>
                 </div>
-                <div class="col" v-else>
-                    <div class="text-center">Data Produk Tidak Tersedia</div>
-                </div>
+                <paginate :total="totalProduct" :perPage="dataPerPage" class="offset-4" />
             </div>
         </div>
         <FooterPemuda :webInformation="webInformation" />
@@ -115,6 +116,7 @@
 <script>
 import HeaderPemuda from "@/components/HeaderPemuda.vue";
 
+import Paginate from "@/components/Paginate.vue";
 import FooterPemuda from "@/components/FooterPemuda.vue";
 
 /**
@@ -127,6 +129,7 @@ export default {
     name: "Product",
     components: {
         HeaderPemuda,
+        Paginate,
         FooterPemuda
     },
     data() {
@@ -137,9 +140,12 @@ export default {
                 name: this.$route.params.search || "",
                 type: "" || "",
                 price_from: "" || "",
-                price_to: "" || ""
+                price_to: "" || "",
+                page: this.$route.params.page || 1
             },
-            products: []
+            products: [],
+            totalProduct: "",
+            dataPerPage: ""
         };
     },
     methods: {
@@ -169,11 +175,14 @@ export default {
                         name: this.filterProduct.name,
                         type: this.filterProduct.type,
                         price_from: this.filterProduct.price_from,
-                        price_to: this.filterProduct.price_to
+                        price_to: this.filterProduct.price_to,
+                        page: this.filterProduct.page
                     }
                 })
                 .then(res => {
                     this.products = res.data.data.data;
+                    this.totalProduct = res.data.data.total;
+                    this.dataPerPage = res.data.data.per_page;
                 })
                 .catch(err => console.log(err));
         }
@@ -190,21 +199,9 @@ export default {
             .catch(err => console.log(err));
 
         /**
-         * Check name in filterProduct empty or not when page ready
-         * if empty that user's do search or filter
          * so run setFilter Method
-         * if not run new request
          */
-        if (this.filterProduct.name == "") {
-            axios.instance
-                .get("products")
-                .then(res => {
-                    this.products = res.data.data.data;
-                })
-                .catch(err => console.log(err));
-        } else {
-            this.setFilter();
-        }
+        this.setFilter();
     },
     watch: {
         /**
@@ -222,7 +219,21 @@ export default {
         "$route.params.search": function(searchParams) {
             this.filterProduct.name = searchParams;
             return this.setFilter();
+        },
+        "$route.params.page": function(page) {
+            this.filterProduct.page = page;
+            return this.setFilter();
         }
     }
 };
 </script>
+<style scoped>
+.component-fade-enter-active,
+.component-fade-leave-active {
+    transition: opacity 0.3s ease;
+}
+.component-fade-enter, .component-fade-leave-to
+/* .component-fade-leave-active below version 2.1.8 */ {
+    opacity: 0;
+}
+</style>

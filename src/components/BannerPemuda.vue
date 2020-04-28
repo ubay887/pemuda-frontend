@@ -12,11 +12,12 @@
                     <carousel
                         class="product-slider"
                         id="carousel"
-                        :item="3"
+                        :item="10"
                         :nav="false"
                         :autoplay="true"
                         :margin="25"
                         :dots="false"
+                        :autoWidth="true"
                     >
                         <div
                             class="product-item"

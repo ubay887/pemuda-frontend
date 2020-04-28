@@ -48,7 +48,9 @@
                                                 <td class="cart-title first-row text-center">
                                                     <h5>{{ product.name }}</h5>
                                                 </td>
-                                                <td class="p-price first-row">${{ product.price }}</td>
+                                                <td
+                                                    class="p-price first-row"
+                                                >{{ idrPrice(product.price) }}</td>
                                                 <td class="delete-item">
                                                     <a href="#" v-on:click="removeItem(index)">
                                                         <i class="material-icons">close</i>
@@ -126,15 +128,15 @@
                                         </li>
                                         <li class="subtotal mt-3">
                                             Subtotal
-                                            <span>{{idrPrice(totalPrice)}}.00</span>
+                                            <span>{{idrPrice(totalPrice)}}</span>
                                         </li>
                                         <li class="subtotal mt-3">
                                             Pajak
-                                            <span>10% = {{ idrPrice(pajak) }}.00</span>
+                                            <span>10% = {{ idrPrice(pajak) }}</span>
                                         </li>
                                         <li class="subtotal mt-3">
                                             Total Biaya
-                                            <span>{{idrPrice(total)}}.00</span>
+                                            <span>{{idrPrice(total)}}</span>
                                         </li>
                                         <li class="subtotal mt-3">
                                             Bank Transfer
@@ -191,7 +193,8 @@ export default {
                 number: "",
                 address: ""
             },
-            webInformation: []
+            webInformation: [],
+            checkoutType: ""
         };
     },
     methods: {
@@ -220,7 +223,7 @@ export default {
 
             axios.instance
                 .post("checkout", checkoutData)
-                .then(() => this.$router.push("success"))
+                .then(res => (this.checkoutType = res.data.meta.status))
                 .catch(err => console.log(err));
         },
         idrPrice(price) {
@@ -263,6 +266,14 @@ export default {
             return `TRX-${Math.floor(Math.random() * 9999)}${Math.floor(
                 Math.random() * 999
             )}`;
+        }
+    },
+    watch: {
+        checkoutType(value) {
+            if (value == "success") {
+                localStorage.setItem("checkoutType", value);
+                this.$router.push({ name: "Success" });
+            }
         }
     }
 };

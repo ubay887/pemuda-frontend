@@ -91,7 +91,7 @@
                                     </div>
                                     <div class="select-total">
                                         <span>total:</span>
-                                        <h5>{{totalPrice}}.00</h5>
+                                        <h5>{{totalPrice}}</h5>
                                     </div>
                                     <div class="select-button">
                                         <router-link to="/cart" class="primary-btn checkout-btn">
@@ -159,7 +159,10 @@ export default {
         totalPrice() {
             if (this.userCart.length > 0) {
                 return idrCurrency.convert(
-                    this.userCart.reduce((items, data) => items + data.price, 0)
+                    this.userCart.reduce(
+                        (items, data) => items + data.price,
+                        ""
+                    )
                 );
             } else {
                 return "0";
