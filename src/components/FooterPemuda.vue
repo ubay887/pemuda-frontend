@@ -36,32 +36,20 @@
                                 <a href="#">About Us</a>
                             </li>
                             <li>
-                                <a href="#">Checkout</a>
-                            </li>
-                            <li>
                                 <a href="#">Contact</a>
-                            </li>
-                            <li>
-                                <a href="#">Serivius</a>
                             </li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-6 col-lg-3 col-sm-6">
                     <div class="footer-widget text-left">
-                        <h5>My Account</h5>
+                        <h5>Others</h5>
                         <ul>
                             <li>
-                                <a href="#">My Account</a>
+                                <router-link :to="{name:'Cart'}">Shopping Cart</router-link>
                             </li>
                             <li>
-                                <a href="#">Contact</a>
-                            </li>
-                            <li>
-                                <a href="#">Shopping Cart</a>
-                            </li>
-                            <li>
-                                <a href="#">Shop</a>
+                                <router-link :to="{name:'Product'}">Shop</router-link>
                             </li>
                         </ul>
                     </div>

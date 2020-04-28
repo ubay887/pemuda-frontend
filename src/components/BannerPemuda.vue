@@ -21,6 +21,8 @@
                         :autoWidth="true"
                     >
                         <div
+                            data-aos="fade-left"
+                            data-aos-duration="500"
                             class="product-item"
                             v-for="product in products"
                             v-bind:key="product.id"
@@ -64,6 +66,8 @@ import carousel from "vue-owl-carousel";
 
 import axios from "@/instance/axios.js";
 import idrCurrency from "@/instance/idrCurrency.js";
+import aos from "aos";
+import "aos/dist/aos.css";
 
 export default {
     name: "BannerShayna",
@@ -96,6 +100,7 @@ export default {
         }
     },
     mounted() {
+        aos.init();
         if (localStorage.getItem("userCart")) {
             try {
                 this.userCart = JSON.parse(localStorage.getItem("userCart"));

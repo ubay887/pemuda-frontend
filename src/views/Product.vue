@@ -73,6 +73,8 @@
                 >
                     <div
                         class="col-6 col-md-12 col-lg-4"
+                        data-aos="fade-left"
+                        data-aos-duration="500"
                         v-for="product in products"
                         v-bind:key="product.id"
                     >
@@ -125,6 +127,8 @@ import FooterPemuda from "@/components/FooterPemuda.vue";
 import idrCurrency from "@/instance/idrCurrency.js";
 
 import axios from "@/instance/axios.js";
+import aos from "aos";
+import "aos/dist/aos.css";
 export default {
     name: "Product",
     components: {
@@ -188,6 +192,7 @@ export default {
         }
     },
     mounted() {
+        aos.init();
         /**
          * Request to get app information from server
          */
