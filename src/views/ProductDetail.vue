@@ -75,7 +75,7 @@
             </div>
         </section>
         <!-- Product Shop Section End -->
-        <RelatedProductPemuda />
+        <RelatedProductPemuda v-bind:typeProduct="product.type" />
         <FooterPemuda v-bind:webInformation="webInformation" />
     </div>
 </template>
@@ -137,6 +137,9 @@ export default {
     computed: {
         idrPrice() {
             return idrCurreny.convert(this.product.price);
+        },
+        typeProduct() {
+            return this.product.type;
         }
     },
     mounted() {
@@ -157,6 +160,7 @@ export default {
                 this.setDataPicture(res.data.data);
             })
             .catch(err => console.log(err));
+
         axios.instance
             .get("app")
             .then(res => {

@@ -142,9 +142,9 @@ export default {
             webInformation: [],
             filterProduct: {
                 name: this.$route.params.search || "",
-                type: "" || "",
-                price_from: "" || "",
-                price_to: "" || "",
+                type: "",
+                price_from: "",
+                price_to: "",
                 page: this.$route.params.page || 1
             },
             products: [],
