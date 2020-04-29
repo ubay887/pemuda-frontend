@@ -24,9 +24,7 @@
                                     </a>
                                 </li>
                                 <li class="quick-view">
-                                    <router-link
-                                        :to="{name:'ProductDetail',params:{slug: product.slug}}"
-                                    >+ Quick View</router-link>
+                                    <a href @click="replacePage(product.slug)">+ Quick View</a>
                                 </li>
                             </ul>
                         </div>
@@ -58,6 +56,14 @@ export default {
         };
     },
     methods: {
+        replacePage(slug) {
+            return this.$router
+                .replace({
+                    name: "ProductDetail",
+                    params: { slug: slug }
+                })
+                .catch(err => err);
+        },
         productType() {
             return this.typeProduct.split(",", 1)[0];
         },

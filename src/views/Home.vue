@@ -50,6 +50,7 @@ export default {
     },
 
     mounted() {
+    
         axios.instance
             .get("app")
             .then(res => (this.webInformation = res.data.data));

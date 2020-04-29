@@ -21,6 +21,7 @@
         </div>
         <!-- Breadcrumb Section Begin -->
         <!-- Product Shop Section Begin -->
+
         <section class="product-shop spad page-details">
             <div class="container">
                 <div class="row">
@@ -48,6 +49,7 @@
                                         </div>
                                     </carousel>
                                 </div>
+                                <div v-else>Foto produk tidak ada</div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="product-details text-left">
@@ -74,6 +76,7 @@
                 </div>
             </div>
         </section>
+
         <!-- Product Shop Section End -->
         <RelatedProductPemuda v-bind:typeProduct="product.type" />
         <FooterPemuda v-bind:webInformation="webInformation" />
@@ -167,6 +170,23 @@ export default {
                 this.webInformation = res.data.data;
             })
             .catch(err => console.log(err));
+    },
+    watch: {
+        "$route.params.slug": function() {
+            axios.instance
+                .get("products", {
+                    params: {
+                        slug: this.$route.params.slug
+                    }
+                })
+                .then(res => {
+                    this.setDataPicture(res.data.data);
+                })
+                .catch(err => console.log(err));
+
+            document.title =
+                this.$route.meta.title + " | " + this.$route.params.slug;
+        }
     }
 };
 </script>

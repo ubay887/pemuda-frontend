@@ -17,12 +17,11 @@
 <script>
 export default {
     name: "Success",
-    mounted() {
-        if (localStorage.getItem("checkoutType") == "success") {
-            localStorage.removeItem("checkoutType");
-        } else {
-            this.$router.push({ name: "Home" });
-        }
+    mounted() {},
+    beforeRouteEnter(to, from, next) {
+        if (localStorage.getItem("checkoutType") != "success")
+            next({ name: "Home" });
+        else next();
     }
 };
 </script>
