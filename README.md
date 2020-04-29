@@ -14,20 +14,23 @@
 ## Instalation
 Before deploy you should do this
 
-### FIRST
+### First
 ```bash
  npm i --save
 ```
 
-### SECOND
+### Second
 you should changes .env file 
 
 ```env
  VUE_APP_NAME='YOUR E-COMMERCE NAME'
  VUE_APP_BASE_URL=YOUR_API_URL
 ```
-### THIRD
+### Third
 ```bash
  npm run build
 ```
 So now yo can deploy this app
+
+# UPDATE
+you can use [PemudaBackend](https://github.com/pemudakoding/pemuda-backend) to control your frontEnd
