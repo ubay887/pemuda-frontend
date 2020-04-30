@@ -1,24 +1,36 @@
-# shayna
+<p align='center'> 
+<a href="https://ibb.co/fSjGdW6"><img src="https://i.ibb.co/H25pTyw/logo.png" alt="logo" border="0"></a>
+<a href="https://ibb.co/C7H3qkF"><img src="https://i.ibb.co/9TrkJFj/Screenshot-from-2020-04-29-17-42-50.png" alt="Screenshot-from-2020-04-29-17-42-50" border="0"></a>
+</p>
 
-## Project setup
-```
-npm install
+## About Pemuda - Milenial Shop 
+ 
+
+  This is a E-Commerce app good for all seller you can sell your produk at this E-Commerce
+  this app building with laravel and vue js and this is a front end section where this is use a vue js
+  just a send request to laravel api
+
+
+## Instalation
+Before deploy you should do this
+
+### First
+```bash
+ npm i --save
 ```
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+### Second
+you should changes .env file 
 
-### Compiles and minifies for production
+```env
+ VUE_APP_NAME='YOUR E-COMMERCE NAME'
+ VUE_APP_BASE_URL=YOUR_API_URL
 ```
-npm run build
+### Third
+```bash
+ npm run build
 ```
+So now yo can deploy this app
 
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+# UPDATE
+you can use [PemudaBackend](https://github.com/pemudakoding/pemuda-backend) to control your frontEnd
