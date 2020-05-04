@@ -160,8 +160,8 @@ export default {
             if (this.userCart.length > 0) {
                 return idrCurrency.convert(
                     this.userCart.reduce(
-                        (items, data) => items + data.price,
-                        ""
+                        (items, data) => items + parseFloat(data.price),
+                        0
                     )
                 );
             } else {

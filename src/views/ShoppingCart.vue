@@ -249,7 +249,7 @@ export default {
         totalPrice() {
             if (this.userCart.length > 0) {
                 return this.userCart.reduce(
-                    (items, data) => items + data.price,
+                    (items, data) => items + parseFloat(data.price),
                     0
                 );
             } else {
@@ -257,10 +257,10 @@ export default {
             }
         },
         pajak() {
-            return (this.totalPrice * 10) / 100;
+            return (parseFloat(this.totalPrice) * 10) / 100;
         },
         total() {
-            return this.totalPrice + this.pajak;
+            return parseFloat(this.totalPrice) + parseFloat(this.pajak);
         },
         idTransaction() {
             return `TRX-${Math.floor(Math.random() * 9999)}${Math.floor(
