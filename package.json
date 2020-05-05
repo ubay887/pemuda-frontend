@@ -11,6 +11,7 @@
     "aos": "^2.3.4",
     "axios": "^0.19.2",
     "core-js": "^3.6.4",
+    "https": "^1.0.0",
     "vue": "^2.6.11",
     "vue-headful": "^2.1.0",
     "vue-owl-carousel": "^2.0.3",
