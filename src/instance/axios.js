@@ -1,4 +1,5 @@
 import axios from 'axios';
+import https from 'https';
 
 https.globalAgent.options.rejectUnauthorized = false;
 const instance = axios.create({
